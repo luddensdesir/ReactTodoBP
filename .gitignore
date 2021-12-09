@@ -8,5 +8,4 @@ build
 buildtypes
 .vscode
 coverage
-.eslintrc.json
 .pub

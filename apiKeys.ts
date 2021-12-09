@@ -2,9 +2,9 @@ var tryRequire = require("try-require");
 
 var config;
 
+console.log(process.env.HEROKU);
 console.log("******************");
 console.log("Environment");
-console.log(process.env);
 
 if(process.env.HEROKU || process.env.AWS ){
     var env = process.env;
