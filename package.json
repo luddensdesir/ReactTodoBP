@@ -13,7 +13,7 @@
     "tsdev": "concurrently \"tsnd --respawn app.ts --watch backend --transpile-only\" \"webpack-dev-server\"",
     "tsdevm": "concurrently \"tsnd --respawn app.ts --watch backend --transpile-only\" \"webpack-dev-server\" \"npm run test\" ",
     "dev": "concurrently \"nodemon app.js\" \"webpack-dev-server\" \"npm run test\" ",
-    "build": "webpack --config webpack.config.js",
+    "build": "webpack --config webpack.config.ts",
     "tscf": "tsc --project tsreactconfig.json",
     "tscb": "tsc --project tsconfig.json",
     "test": "mocha --require ts-node/register --watch-extensions ts,tsx --require @babel/register --require ./tests/helpers.js --require ./tests/dom.js --require ignore-styles ./frontend/**/*test.js  -w",
