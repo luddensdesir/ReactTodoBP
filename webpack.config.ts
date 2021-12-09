@@ -1,0 +1,196 @@
+const StylelintPlugin = require("stylelint-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const config = require("./localconfig");
+const curEnv = config.curEnv;
+const path = require("path");
+const webpack = require("webpack");
+const DIST = path.resolve(__dirname, "dist");
+const SRC = path.resolve(__dirname, "frontend");
+
+module.exports = {
+    mode: curEnv,
+    entry: SRC + "/index.tsx",
+    devtool: "inline-source-map", //make 'source-map' for prod
+    output: {
+      path: DIST,
+      filename: "[name].bundle.js",
+      // publicPath: DIST,
+      devtoolLineToLine: {
+        test: /\.jsx$/
+      },
+    },
+    resolve: {
+      extensions: [ ".tsx", ".ts", ".js" ],
+    },
+    module: {
+      rules: [
+        {
+            test: /\.s[ac]ss$/i,
+            use: [
+                "style-loader",
+                "css-loader",
+                "sass-loader",
+            ],
+        },
+        {
+          test: /\.js$/,
+          enforce: "pre",
+          exclude: /node_modules/,
+          loader: "eslint-loader",
+          options: {
+            emitError: true,
+            emitWarning: true,
+            failOnError: true,
+            failOnWarning: false,
+            quiet: false,
+          },
+        },
+        {
+            test: /\.(js|jsx|tsx|ts)$/,
+            loader: "babel-loader",
+            /*use: [{loader: "loader-loader", options:{
+              workerParallelJobs: 50,
+              workerNodeArgs: ['--max-old-space-size=1024'],
+            }}, "babel-loader"], */
+            include: [
+              SRC
+            ],
+            exclude: /(node_modules)/,
+            enforce: "pre",
+            options: {
+              cacheDirectory: true,
+              presets: [
+                "@babel/preset-react", 
+                "@babel/preset-env", 
+                ["@babel/preset-typescript", {isTSX: true, allExtensions: true, jsxPragma: "React"}]],
+              plugins: [
+                "@babel/plugin-proposal-object-rest-spread",
+                ["@babel/plugin-proposal-class-properties", { "loose": true }]
+              ]
+            },
+          },
+          // { commented out because compiling with babel but checking types with typescript //https://www.youtube.com/watch?v=c9iAWw9oqK4
+          //   loader: "ts-loader",
+          //   options: {
+          //     logLevel: "error",
+          //     silent: false,
+          //     logInfoToStdOut: false,
+          //     configFile: "tsreactconfig.json",
+          //     transpileOnly: true,
+          //     happyPackMode: true,
+          //   //experimentalWatchApi: true,
+          //     compilerOptions:{
+          //     }
+          //   },
+          // },
+          {
+            test: /\.js$/,
+            use: [
+              "source-map-loader"
+            ], //use if having difficulty with ts
+            enforce: "pre",
+            // noParse: files that should not be parsed.
+          },
+          {
+            test: /\.(png|jpe?g|gif)$/i,
+            use: [
+              {
+                loader: "file-loader",
+              },
+            ],
+          },
+      ],
+    },
+    devServer: {    
+      host: "localhost",
+      port: 3000, 
+      proxy: {
+        "!/": { //don't proxy root
+          target: "http://localhost:8080/",
+          ws: false,
+          secure: false,
+          // bypass: function(req, res, proxyOptions) {
+          //   // console.log(req);
+          //   // console.log("proxy bypass");
+          // }
+        },
+        "/**": { //proxy everything else
+          target: "http://localhost:8080/",
+          ws: false,
+          secure: false,
+          changeOrigin: true
+        }
+      },
+      overlay: {
+        warnings: true,
+        errors: true
+      },
+      // headers {
+      //   "Access-Control-Allow-Origin", "*"
+      // }
+      // progress: true,
+      inline: true,
+      contentBase: DIST, // boolean | string | array, static file location
+      clientLogLevel: "none", 
+      watchOptions: { 
+        ignored: [/node_modules/, /backend/, /tests/]
+      },
+      historyApiFallback: true, // true for index.html upon 404, object for multiple paths
+      hot: true, // hot module replacement. Depends on HotModuleReplacementPlugin
+      liveReload: false, //is off when hot reload is on, as it causes page reloads
+      https: false, // true for self-signed, object for cert authority
+      index: DIST + "/index.ejs",
+      quiet: false,
+      noInfo: false,
+      stats: {
+          assets: false,
+          children: false,
+          chunks: false,
+          chunkModules: false,
+          colors: true,
+          entrypoints: false,
+          hash: false,
+          modules: false,
+          timings: false,
+          version: false,
+          builtAt: false,
+          errors: false,
+          errorDetails: false,
+          errorStack: false,
+          logging: false,
+          // loggingDetails: true,
+      }
+    },
+    optimization:{
+      // splitChunks:{ //only really need this for production
+        
+      // }
+      runtimeChunk:{
+        name: "manifest"
+      },
+    },
+    // externals: { //only use if including script in index.ejs or index.html and not bundling from node_modules into entry file
+    //     "react": "React",
+    //     "react-dom": "ReactDOM"
+    // },
+    plugins: [
+      new HtmlWebpackPlugin({
+        filename: __dirname  + "/dist/index.ejs",
+        template: __dirname  + "/frontend/index.ejs",
+        inject: "body",
+        manifest: DIST + "/manifest.bundle.js",
+        title:require("./package.json").name
+      }),
+      new webpack.DefinePlugin({
+        "global.env": JSON.stringify(process.env.NODE_ENV), //these are frontend globals
+      }),
+      new StylelintPlugin({
+        configFile: __dirname + "/.stylelintrc.json",
+        emitWarning: true,
+        emitError: true,
+        failOnError: false,
+        failOnWarning: false,
+        quiet: false
+      })
+    ]
+}
