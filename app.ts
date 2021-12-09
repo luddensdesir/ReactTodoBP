@@ -1,4 +1,5 @@
-import {config} from "./localconfig";
+// import {config} from "./localconfig";
+import {config} from "./apiKeys";
 import express from "express";
 import path from "path";
 // const app from "express")();
@@ -11,6 +12,8 @@ import * as jwtHelper from "./backend/utils/jwtHelper";
 import UserData from "./backend/dataAccess/users";
 import ListData from "./backend/dataAccess/lists";
 import * as utils from "./backend/utils/misc";
+import {connection} from "./backend/dataAccess/dbConnection";
+
 require("@babel/register")({extensions: [".js", ".ts"]});
 
 const app = express();
@@ -18,12 +21,11 @@ const app = express();
 const port = 8080;
 const curEnv = config.curEnv;
 const dev = (curEnv === "development");
-const dbConn = require("./backend/dataAccess/dbConnection");
 let ejs = require("ejs");
 require("pretty-error").start();
 
 
-dbConn.connection(config.dbCreds);
+connection(config.dbCreds);
 
 app.use(cookieParser(config.cookieSecret, { httpOnly: true })); 
 app.use(morgan("dev"));

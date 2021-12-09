@@ -1,6 +1,7 @@
 import * as AES from "gibberish-aes/src/gibberish-aes.js";
 import * as jwt from "jsonwebtoken";
-import {config} from "../../localconfig";
+// import {config} from "../../localconfig";
+import {config} from "../../apiKeys";
 
 const jwtSecret = config.user.secret;
 const aesSecret = config.aes.secret;

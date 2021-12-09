@@ -1,5 +1,7 @@
 import * as  stackTrace from "stack-trace";
-import {config} from "../../localconfig";
+// import {config} from "../../localconfig";
+import {config} from "../../apiKeys";
+
 const env = config.curEnv;
 const curEnv = config.curEnv;
 const dev = (curEnv === "development");

@@ -1,6 +1,7 @@
 const StylelintPlugin = require("stylelint-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const config = require("./localconfig");
+// const config = require("./localconfig");
+const config = require("./apiKeys");
 const curEnv = config.curEnv;
 const path = require("path");
 const webpack = require("webpack");

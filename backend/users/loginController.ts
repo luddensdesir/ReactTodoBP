@@ -1,6 +1,7 @@
 import * as UserData from "../dataAccess/users";
 import * as helper from "../utils/jwtHelper";
-import {config} from "../../localconfig";
+// import {config} from "../../localconfig";
+import {config} from "../../apiKeys";
 import * as utils from "../utils/misc";
 import * as ListData from "../dataAccess/lists";
 
