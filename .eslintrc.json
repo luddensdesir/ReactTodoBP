@@ -32,7 +32,7 @@
 	},
 	"rules": {
 		"no-const-assign": "error",
-		"eqeqeq" : ["error", "always"],
+		// "eqeqeq" : ["error", "always"],
 		"semi": "error",
 		"no-use-before-define": [
 			"error",
