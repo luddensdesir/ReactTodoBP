@@ -2,7 +2,6 @@ localconfig.js
 localconfig.ts
 node_modules
 dist
-api
 vscode
 build
 buildtypes
