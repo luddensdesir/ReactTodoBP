@@ -12,19 +12,19 @@ export default function Register(){
       password: password,
       email: email
     });
-  }
+  };
 
   const updateUsername = (val) => {
     setUsername(val);
-  }
+  };
 
   const updateEmail = (val) => {
     setEmail(val);
-  }
+  };
 
   const updatePassword = (val) => {
     setPassword(val);
-  }
+  };
 
   return ( 
     <div id = "registerModal">

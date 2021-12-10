@@ -4,7 +4,7 @@
   "license": "ISC",
   "version": "1.0.0",
   "description": "React todolist",
-  "main": "app.js",
+  "main": "build/app.js",
   "engines": {
     "node": "12.9.1"
   },
