@@ -49,11 +49,11 @@ export default function Main() {
       <div id = "main">
         <div>
           <div id = "header">
-            <h1>Planner Pocket</h1>
+            <h1>React Todo</h1>
             <ul >
               <li><Link to = "/account">Account</Link></li>
               <li><Link to = "/newlist">New List</Link></li>
-              <li><Link to = "/stores">Stores</Link></li>
+              {/* <li><Link to = "/stores">Stores</Link></li> */}
             </ul>
           </div> 
           {/* https://www.youtube.com/watch?v=CZeulkp1ClA */}

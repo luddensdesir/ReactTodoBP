@@ -15,7 +15,7 @@ module.exports = {
     output: {
       path: DIST,
       filename: "[name].bundle.js",
-      // publicPath: DIST,
+      publicPath: "/dist/",
       devtoolLineToLine: {
         test: /\.jsx$/
       },

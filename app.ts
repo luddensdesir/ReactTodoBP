@@ -13,6 +13,7 @@ import UserData from "./backend/dataAccess/users";
 import ListData from "./backend/dataAccess/lists";
 import * as utils from "./backend/utils/misc";
 import {connection} from "./backend/dataAccess/dbConnection";
+import ejs from "ejs";
 
 require("@babel/register")({extensions: [".js", ".ts"]});
 
@@ -21,7 +22,6 @@ const app = express();
 const port = 8080;
 const curEnv = config.curEnv;
 const dev = (curEnv === "development");
-let ejs = require("ejs");
 require("pretty-error").start();
 
 
@@ -35,7 +35,8 @@ app.use(bodyParser.json());
 ejs.delimiter = "?";
 app.set("view engine", "ejs");
 
-app.use(express.static(path.join(__dirname, "dist")));
+// app.use(express.static(path.join(__dirname, "dist")));
+app.use(express.static("dist"));
 
 app.use(function(req, res, next) {
   if(dev){
@@ -43,7 +44,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   } 
   
-  res.header("Content-Type", "text/html");
+  // res.header("Content-Type", "text/javascript");
   next();
 }); 
 
@@ -58,6 +59,11 @@ app.use(function(req, res, next) {
   next();
 });
 
+let dirPrefix = "";
+if(process.env.HEROKU === "true" && curEnv === "production" ){
+  dirPrefix = "../";
+}
+
 app.get("/", (req,res) => {
 
   if(!utils.n(req.userToken)){
@@ -70,7 +76,7 @@ app.get("/", (req,res) => {
           actuallyEmpty = true;
         }
 
-        res.render(path.resolve(__dirname, "dist", "index.ejs"), {
+        res.render(path.resolve(__dirname, dirPrefix + "dist", "index.ejs"), {
           lastUsedList: JSON.stringify(resList.list),
           userListActuallyEmpty: actuallyEmpty
         });
@@ -79,7 +85,7 @@ app.get("/", (req,res) => {
     });
   } else {
     utils.l("encodedToken is null");
-    res.render(path.resolve(__dirname, "dist", "index.ejs"), {
+    res.render(path.resolve(__dirname, dirPrefix + "dist", "index.ejs"), {
       lastUsedList: JSON.stringify([]),
       userListActuallyEmpty: false
     });

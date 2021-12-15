@@ -9,12 +9,12 @@
       "strict": false,
       "strictNullChecks": true,
       "removeComments": true,
-      "moduleResolution": "node",
+      "moduleResolution": "node",  
       "esModuleInterop": true,
       "allowSyntheticDefaultImports": true,
       "charset": "utf8",
       "sourceMap": true,
-      "watch": true,
+      "watch": false,
       "incremental" : true,
       "noImplicitAny": false
   },
@@ -23,12 +23,12 @@
   },
   "include": [
       "app.ts",
+      "localconfig.ts",
       "apiKeys.ts",
       "backend/**/*.ts"
   ],
   "exclude": [
       "frontend",
-      "localconfig.js",
       "tests",
       "dist",
       "node_modules",

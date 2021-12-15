@@ -13,13 +13,18 @@
     "tsdev": "concurrently \"tsnd --respawn app.ts --watch backend --transpile-only\" \"webpack-dev-server\"",
     "tsdevm": "concurrently \"tsnd --respawn app.ts --watch backend --transpile-only\" \"webpack-dev-server\" \"npm run test\" ",
     "dev": "concurrently \"nodemon app.js\" \"webpack-dev-server\" \"npm run test\" ",
-    "build": "webpack --config webpack.config.ts",
     "tscf": "tsc --project tsreactconfig.json",
     "tscb": "tsc --project tsconfig.json",
     "test": "mocha --require ts-node/register --watch-extensions ts,tsx --require @babel/register --require ./tests/helpers.js --require ./tests/dom.js --require ignore-styles ./frontend/**/*test.js  -w",
-    "kill": "concurrently \"kill-port 8080\" \"kill-port 3000\""
+    "startbuild": "node build/app.js",
+    "kill": "concurrently \"kill-port 8080\" \"kill-port 3000\"",
+    "start": "npm run buildprod && npm run startbuild",
+    "buildprod": "npm run clean && npm run build && npm run tscb",
+    "build": "webpack --config webpack.config.ts",
+    "clean": "rimraf dist && rimraf build"
   },
   "dependencies": {
+    "@babel/runtime": "^7.8.7",
     "@reach/combobox": "^0.10.2",
     "@react-google-maps/api": "^2.1.1",
     "@stripe/react-stripe-js": "^1.1.2",
@@ -54,6 +59,7 @@
     "react-dom": "^16.12.0",
     "react-dropzone": "^10.2.2",
     "react-router-dom": "^5.1.2",
+    "rimraf": "^3.0.2",
     "sanitize": "^2.1.0",
     "sequelize": "^5.21.4",
     "stack-trace": "0.0.10",
@@ -63,8 +69,9 @@
     "uniqid": "^5.2.0",
     "use-places-autocomplete": "^1.9.1",
     "uuidv4": "^6.0.7",
-    "@babel/runtime": "^7.8.7",
-    "validator": "^12.2.0"
+    "validator": "^12.2.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.15.0",
@@ -110,8 +117,6 @@
     "ts-mocha": "^8.0.0",
     "ts-node": "^10.2.0",
     "ts-node-dev": "^1.1.8",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.3"
   },
   "browserslist": {
