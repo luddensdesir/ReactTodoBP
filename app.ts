@@ -59,7 +59,7 @@ app.use(function(req, res, next) {
 });
 
 let dirPrefix = "";
-if(process.env.HEROKU === "true" && curEnv === "production" ){
+if((process.env.HEROKU === "true" && curEnv === "production") || (__dirname.indexOf("build")!= -1)){
   dirPrefix = "../";
 }
 
