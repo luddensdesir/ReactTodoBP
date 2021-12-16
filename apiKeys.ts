@@ -2,7 +2,7 @@ var tryRequire = require("try-require");
 
 var config;
 
-if(process.env.HEROKU === "true" || process.env.AWS ){
+if(process.env.HEROKU == "true" || process.env.AWS ){
     var env = process.env; 
     config = {
         cookieSecret: env.COOKIE_SECRET,
@@ -16,6 +16,9 @@ if(process.env.HEROKU === "true" || process.env.AWS ){
         },
         dbCreds: env.MONGODB_URI
     };
+
+    console.log("HEROKU");
+    console.log("HEROKU");
 } else {
     var url = __dirname + "/localconfig";
     if(tryRequire.resolve(url)){

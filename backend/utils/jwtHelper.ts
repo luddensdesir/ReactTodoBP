@@ -3,10 +3,6 @@ import * as jwt from "jsonwebtoken";
 // import {config} from "../../localconfig";
 import {config} from "../../apiKeys";
 
-console.log("***********************");
-console.log("config");
-console.log(config);
-
 const jwtSecret = config.user.secret;
 const aesSecret = config.aes.secret;
 const aesPass = config.aes.pass;

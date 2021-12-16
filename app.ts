@@ -25,6 +25,7 @@ const dev = (curEnv === "development");
 require("pretty-error").start();
 
 
+connection("config.dbCreds");
 connection(config.dbCreds);
 
 app.use(cookieParser(config.cookieSecret, { httpOnly: true })); 
