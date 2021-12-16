@@ -17,8 +17,6 @@ if(process.env.HEROKU == "true" || process.env.AWS ){
         dbCreds: env.MONGODB_URI
     };
 
-    console.log("HEROKU");
-    console.log("HEROKU");
 } else {
     var url = __dirname + "/localconfig";
     if(tryRequire.resolve(url)){

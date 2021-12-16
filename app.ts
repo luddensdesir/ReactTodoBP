@@ -19,7 +19,7 @@ require("@babel/register")({extensions: [".js", ".ts"]});
 
 const app = express();
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 const curEnv = config.curEnv;
 const dev = (curEnv === "development");
 require("pretty-error").start();
@@ -103,6 +103,8 @@ app.get("/register/", function (req, res) {
   res.header("Content-Type", "text/html");
   res.sendFile(path.resolve(__dirname, "dist", "index.html"));
 });
+
+console.log("starting app...");
 
 app.listen(port, () => {
   console.log(colors.yellow(`Listening to app on server port ${port} in ${curEnv} mode`));
