@@ -111,8 +111,7 @@
     "ts-node-dev": "^1.1.8",
     "webpack-dev-server": "^3.10.3"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "browserslist": {
     "production": [
       "chrome 79",
