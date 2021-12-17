@@ -8,16 +8,17 @@ const dev = (curEnv === "development");
 
 const registerController = ()=>{
   const register = async (req, res) =>{
-    const newUser = new UserData({
+    const newUser = {
           email: req.body.email,
           username: req.body.username,
           password: req.body.password,
           token: ""
-      });
+      };
     
-    UserData.getUserByEmail(newUser.email, (getEmailErr, resUser)=>{
-      if(utils.n(getEmailErr)){
-        if(utils.n(resUser)){
+    // UserData.getUserByEmail(newUser.email, (getUserErr, resUser)=>{
+    UserData.checkExistingUser(newUser.email, newUser.username, (getUserErr, resUser)=>{
+      if(utils.n(getUserErr)){
+        if(utils.n(resUser)) {
           UserData.registerUser(newUser, (registerErr, registeredUser)=>{
             if(utils.n(registerErr)){
               if(!utils.n(registeredUser)){
@@ -45,14 +46,18 @@ const registerController = ()=>{
                     httpOnly: false,
                   });
 
-                  utils.l(registeredUser);
+                  // utils.l(registeredUser);
                   // e(err, tr(10));
+
+                console.log("successful registration");
                 res.status("200").send({data: "register success"});
               } else {
+                console.log("fail");
                 res.status("500").send({ data: "registration failed"});
               }
             } else {
-              res.status("500").send({ data: "registration failed" });
+                console.log("fail");
+                res.status("500").send({ data: "registration failed" });
             }
           });
         } else {
@@ -60,7 +65,7 @@ const registerController = ()=>{
           res.status("204").send({data:"user is already defined"});
         }
       } else {
-        utils.tr(getEmailErr);
+        utils.tr(getUserErr);
         res.status("500").send({data:"Error getting user"});
       }
     });

@@ -71,8 +71,9 @@ app.get("/", (req,res) => {
 
         let actuallyEmpty = false;
 
-        if(resList.list.length === 0){
+        if(resList == null || resList.list.length === 0){
           actuallyEmpty = true;
+          resList = {list: []};
         }
 
         res.render(path.resolve(__dirname, dirPrefix + "dist", "index.ejs"), {

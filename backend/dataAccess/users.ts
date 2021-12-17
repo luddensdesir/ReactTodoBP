@@ -34,34 +34,46 @@ const UserSchema = mongoose.Schema({
     }
 });
 
-var UserData = mongoose.model("User", UserSchema);
+var UserModel = mongoose.model("User", UserSchema);
 
-
-UserData.comparePassword = function(candidatePassword, hash, callback){
-	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
-    	callback(err, isMatch);
-	});
-};
-
-UserData.registerUser = function(newUser, callback){
-	bcrypt.genSalt(10, function(err, salt) {
-		bcrypt.hash(newUser.password, salt, function(err, hash) {
-			newUser.password = hash;
-			newUser.memberID = uniqid();
-			newUser.registerDate = new Date().getTime();
-			newUser.save();
-			callback(null, newUser);
+var UserData = {
+	comparePassword : function(candidatePassword, hash, callback){
+		bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+			callback(err, isMatch);
 		});
-	});
-};
+	},
 
-UserData.getUserByEmail = function(email, callback){
-	// console.log(validator.isEmail(email));
-	UserData.findOne({email: email}, callback);
-};
+	registerUser : function(newUser, callback){
+		let user = UserModel(newUser);
+		
+		bcrypt.genSalt(10, function(err, salt) {
+			bcrypt.hash(newUser.password, salt, function(err, hash) {
+				user.password = hash;
+				user.memberID = uniqid();
+				user.registerDate = new Date().getTime();
+				user.save();
+				callback(null, user);
+			});
+		});
+	},
 
-UserData.getUserByUsername = function(username, callback){
-	UserData.findOne({username: username}, callback);
+	checkExistingUser : function(email, username, callback){
+		console.log(email);
+		console.log(username);
+		UserModel.findOne({$or: [
+			{email: email},
+			{username: username}
+		]}, callback);
+	},
+
+	getUserByEmail : function(email, callback){
+		// console.log(validator.isEmail(email));
+		UserModel.findOne({email: email}, callback);
+	},
+
+	getUserByUsername : function(username, callback){
+		UserModel.findOne({username: username}, callback);
+	}
 };
 
 export = UserData;

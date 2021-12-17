@@ -8,10 +8,18 @@ const webpack = require("webpack");
 const DIST = path.resolve(__dirname, "dist");
 const SRC = path.resolve(__dirname, "frontend");
 
+let devtool =  "";
+
+if(curEnv == "development"){
+  devtool = "inline-source-map";
+} else {
+  devtool = "source-map";
+}
+
 module.exports = {
     mode: curEnv,
     entry: SRC + "/index.tsx",
-    devtool: "inline-source-map", //make 'source-map' for prod
+    devtool: devtool, //make 'source-map' for prod
     output: {
       path: DIST,
       filename: "[name].bundle.js",

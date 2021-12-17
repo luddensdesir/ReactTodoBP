@@ -24,7 +24,7 @@ const loginController = () =>{
                   utils.l("Login Success for user:");
                   utils.l(resUser);
                   
-                  ListData.getListbyUserId(resUser.memberID, (getListError, resList)=>{
+                  ListData.getListbyUserId(resUser.memberID, (getListError, resList)=>{ 
                     if(utils.n(getListError)){
                       const token = helper.getLoginToken(loginUser.username);
                       const expiryTime = Date.now() + (dev?36000:3600000); 
@@ -49,8 +49,12 @@ const loginController = () =>{
                           secure: !dev,
                           httpOnly: false,
                         });
-
-                      res.status("200").send({data: resList.list});
+                      
+                      if(utils.n(resList)){
+                        res.status("200").send({data: {}});
+                      } else {
+                        res.status("200").send({data: resList.list});
+                      }
                     }
                   });
 
