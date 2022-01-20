@@ -2,8 +2,12 @@
   "verbose": false,
   "quiet": true,
   "ignore": [
+    "buildtypes/",
+    "coverage/",
+    "node_modules/",
+    "tests/",
     "frontend/*",
-    "dist/*",
+    "build/*",
     "tests/",
     "webpack.config.js"
   ],

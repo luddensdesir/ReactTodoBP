@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; 
 import Main from "./pages/Main/Main";
 export default function App(){
   
@@ -10,5 +10,3 @@ export default function App(){
 }
 
 App.displayName = "MainApp";
-
-
