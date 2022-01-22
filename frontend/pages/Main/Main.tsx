@@ -1,32 +1,32 @@
-import React, {Component, useEffect, useState} from "react";
+import React, {ReactElement, Component, useEffect, useState} from "react";
 import {BrowserRouter as Router, Route, Redirect, Switch, Link} from "react-router-dom";
 // import {PropTypes} from "prop-types";
 
 import LocalStore from "../../stores/LocalStore";
-
 import Register from "../../globalComponents/Register";
 import Login from "../../globalComponents/Login";
 import List from "../../globalComponents/List";
-export default function Main() {
-  const [loggedIn, setLoggedIn] = useState(LocalStore.store.getLoggedIn());
-  const [unmountLoginForms, setUnmountLoginForms] = useState(LocalStore.store.getLoggedIn());
+
+const Main = ():ReactElement => {
+  const [loggedIn, setLoggedIn] = useState<boolean>(LocalStore.store.getLoggedIn());
+  const [unmountLoginForms, setUnmountLoginForms] = useState<boolean>(LocalStore.store.getLoggedIn());
   
-  const updateLoggedInStatus = (loggedIn)=>{
+  const updateLoggedInStatus = (loggedIn:boolean):void=>{
     setLoggedIn(loggedIn);
   };
 
-  const updateMountStatus = (mount)=>{
+  const updateMountStatus = (mount:boolean):void =>{
     setUnmountLoginForms(mount);
   };
 
-  const revealLoginForms = (delay) => { 
+  const revealLoginForms = (delay:number):void => { 
     setTimeout(()=>{
       updateLoggedInStatus(false);
       updateMountStatus(false);
     }, delay);
   };
 
-  const hideLoginForms = (showDelayTime)=>{;
+  const hideLoginForms = (showDelayTime:number):void=>{
 
     updateLoggedInStatus(true);
 
@@ -60,13 +60,15 @@ export default function Main() {
           <div id = "loginFormsContainer">
             <div className = {loginInnerContainerClasses} >
               {!unmountLoginForms ? <Register hideSelf = {hideLoginForms} showSelf = {revealLoginForms} /> :null}
-              {!unmountLoginForms ? <Login  hideSelf = {hideLoginForms} showSelf = {revealLoginForms}/> :null}
+              {!unmountLoginForms ? <Login  hideSelf = {hideLoginForms}/> :null}
             </div>
           </div> 
         </div>
       </div>
     </Router>
   );
-} 
+};
 
 Main.displayName = "Main";
+
+export default Main;

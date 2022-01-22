@@ -59,9 +59,9 @@ app.use(function(req, res, next) {
 });
 
 let dirPrefix = "";
-// if((process.env.HEROKU === "true" && curEnv === "production") || (__dirname.indexOf("build")!= -1)){//shouldn't need this anymore
-//   dirPrefix = "../";
-// }
+if(curEnv == "development" || (__dirname.indexOf("build") == -1)){ // if in development or running from main root directory prefix with build
+  dirPrefix = "build/";
+}
 
 app.get("/", (req,res) => {
 
@@ -104,8 +104,6 @@ app.get("/register/", function (req, res) {
   res.header("Content-Type", "text/html");
   res.sendFile(path.resolve(__dirname, "dist", "index.html"));
 });
-
-console.log("starting app...");
 
 app.listen(port, () => {
   console.log(colors.yellow(`Listening to app on server port ${port} in ${curEnv} mode`));
