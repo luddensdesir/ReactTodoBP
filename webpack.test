@@ -5,7 +5,7 @@ const config = require("./apiKeys.ts");
 const curEnv = config.curEnv;
 const path = require("path");
 const webpack = require("webpack");
-const DIST = path.resolve(__dirname, "build/dist");
+const DIST = path.resolve(__dirname, "dist");
 const SRC = path.resolve(__dirname, "frontend");
 
 let devtool =  "";
@@ -152,21 +152,21 @@ module.exports = {
       quiet: false,
       noInfo: false,
       stats: {
-          assets: true,
-          children: true,
-          chunks: true,
-          chunkModules: true,
+          assets: false,
+          children: false,
+          chunks: false,
+          chunkModules: false,
           colors: true,
-          entrypoints: true,
-          hash: true,
-          modules: true,
-          timings: true,
-          version: true,
-          builtAt: true,
-          errors: true,
-          errorDetails: true,
-          errorStack: true,
-          logging: true,
+          entrypoints: false,
+          hash: false,
+          modules: false,
+          timings: false,
+          version: false,
+          builtAt: false,
+          errors: false,
+          errorDetails: false,
+          errorStack: false,
+          logging: false,
           // loggingDetails: true,
       }
     },
@@ -184,8 +184,8 @@ module.exports = {
     // },
     plugins: [
       new HtmlWebpackPlugin({
+        filename: __dirname  + "/dist/index.ejs",
         template: __dirname  + "/frontend/index.ejs",
-        filename: __dirname  + "/build/dist/index.ejs",
         inject: "body",
         manifest: DIST + "/manifest.bundle.js",
         title:require("./package.json").name
