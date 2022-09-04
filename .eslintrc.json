@@ -1,8 +1,8 @@
 {
 	"parser": "@typescript-eslint/parser",
 	// "parser": "babel-eslint",
-  	"ignorePatterns": ["dist/", "node_modules/", "**/*.test.js", "webpack.config.js"],
-	"extends": [
+  	"ignorePatterns": ["dist/", "build/", "buildtypes/", "coverge/", "tests/", "node_modules/", "**/*.test.js", "webpack.config.js"],
+	  "extends": [
 		// "plugin:@typescript-eslint/recommended"
 		// "plugin:react/recommended",
 		// "eslint-config-airbnb",

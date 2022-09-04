@@ -7,6 +7,7 @@ import LocalStore from "../../stores/LocalStore";
 import Register from "../../globalComponents/Register";
 import Login from "../../globalComponents/Login";
 import List from "../../globalComponents/List";
+
 export default function Main() {
   const [loggedIn, setLoggedIn] = useState(LocalStore.store.getLoggedIn());
   const [unmountLoginForms, setUnmountLoginForms] = useState(LocalStore.store.getLoggedIn());
@@ -55,46 +56,14 @@ export default function Main() {
               <li><Link to = "/newlist">New List</Link></li>
               {/* <li><Link to = "/stores">Stores</Link></li> */}
             </ul>
-          </div> 
-          {/* https://www.youtube.com/watch?v=CZeulkp1ClA */}
-          {/* <Switch>
-            <Map  = "/stores" />
-            <Upload  = "/uploads" />
-            <Payment  = "/account" />
-            <Cart  = "/checkout"/>
-            <Webcam  = "/webcam"/>
-          </Switch> */}
-          {/* <Switch> */}
+          </div>  
             <List />
-          {/* </Switch> */}
           <div id = "loginFormsContainer">
             <div className = {loginInnerContainerClasses} >
               {!unmountLoginForms ? <Register hideSelf = {hideLoginForms} showSelf = {revealLoginForms} /> :null}
               {!unmountLoginForms ? <Login  hideSelf = {hideLoginForms} showSelf = {revealLoginForms}/> :null}
             </div>
-          </div>
-          {/*<BrowserRouter>
-            <Switch>  
-              <Route ="/" component={Todolist} />
-              <Route ="/login" render={(props) => {
-                                    if(!LocalStore.getLoggedIn()){
-                                        return <Login {...props} />;
-                                    } else {
-                                        return <Redirect to="/"/>;
-                                    }                   
-                                }}>
-              </Route>
-
-              <Route ="/register" render={(props) => {
-                                    if(!LocalStore.getLoggedIn()){
-                                        return <Register {...props} />;
-                                    } else {
-                                        return <Redirect to="/"/>;
-                                    }                   
-                                }}>
-              </Route>
-            </Switch>
-          </BrowserRouter> */}
+          </div> 
         </div>
       </div>
     </Router>
