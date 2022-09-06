@@ -6,7 +6,7 @@
   "description": "React todolist",
   "main": "build/app.js",
   "engines": {
-    "node": "12.9.1"
+    "node": "14"
   },
   "scripts": {
     "tsnode": "tsnd --respawn app.ts",
@@ -17,10 +17,10 @@
     "tscf": "tsc --project tsreactconfig.json",
     "tscb": "tsc --project tsconfig.json",
     "startbuild": "node build/app.js",
-    "kill": "concurrently \"kill-port 8080\" \"kill-port 3000\"",
-    "start": "npm run buildprod && npm run startbuild",
     "buildprod": "npm run clean && npm run build && npm run tscb",
     "build": "webpack --config webpack.config.ts",
+    "kill": "concurrently \"kill-port 8080\" \"kill-port 3000\"",
+    "start": "npm run buildprod && npm run startbuild",
     "clean": "rimraf dist && rimraf build"
   },
   "dependencies": {
