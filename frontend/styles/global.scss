@@ -22,6 +22,14 @@ video{
 }
 
 #header {
+    width: 100vw;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: $headerHeight;
+    // background-color: $black;
+    background-color: red;
+    
     h1 {
         margin-left: 7.5%;
         color: white;
@@ -114,15 +122,6 @@ button, input[type=submit]{
     // background-color: orange;
     padding-top: $commonMargin;
     box-sizing: border-box;
-}
-
-#header{
-    width: 100vw;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    height: $headerHeight;
-    background-color: $black;
 }
 
 .todoItem{

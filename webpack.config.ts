@@ -153,7 +153,7 @@ module.exports = {
       noInfo: false,
       stats: {
           // assets: true,
-          // children: true,
+          children: false,
           // chunks: true,
           // chunkModules: true,
           // colors: true,
