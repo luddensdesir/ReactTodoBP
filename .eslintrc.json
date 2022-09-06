@@ -41,7 +41,7 @@
 		// "no-unused-vars": 1,
 		"no-undef": "error",
 		"react/no-unused-prop-types": 1,
-		"yoda": ["error", "never", { "exceptRange": true }],
+		// "yoda": ["error", "never", { "exceptRange": true }],
 		"no-debugger": 0, // we are enabling this in the scripts
 		"quotes": ["warn", "double", { "avoidEscape": true }],
 		"react/jsx-uses-react": 1,

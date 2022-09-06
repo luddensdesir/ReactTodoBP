@@ -184,8 +184,8 @@ module.exports = {
     // },
     plugins: [
       new HtmlWebpackPlugin({
-        filename: __dirname  + "/build/dist/index.ejs",
-        template: __dirname  + "/frontend/index.ejs",
+        filename: "./build/dist/index.ejs",
+        template: "./frontend/index.ejs",
         inject: "body",
         manifest: DIST + "/manifest.bundle.js",
         title:require("./package.json").name
