@@ -1,7 +1,7 @@
 // declare namespace Window {
     export interface Global {
-        env: string;
+        env: String;
     }
 // }
 
-declare const env: string;
+declare const env: String;
